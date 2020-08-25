@@ -1,17 +1,13 @@
-import React, { useEffect } from 'react';
-import ItemService from '../../services/ItemService';
+import React from 'react';
+import ItemList from '../ItemList';
 
 const Home = () => {
-  useEffect(() => {
-    const fetch = async () => {
-      const result = await ItemService.get();
-      console.log(result.data);
-    };
-    console.log('LOADED');
-    fetch();
-  }, []);
-
-  return <div>Home</div>;
+  return (
+    <div>
+      Home
+      <ItemList></ItemList>
+    </div>
+  );
 };
 
 export default Home;
