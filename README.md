@@ -16,5 +16,6 @@ In the project directory, you can run:
 
 ### TODOs
 
-- onClick item
-- save on localStorage
+- select item on click
+- save current order on localStorage
+- handle request errors

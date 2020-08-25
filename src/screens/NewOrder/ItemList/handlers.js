@@ -32,7 +32,3 @@ export const selectItem = (dispatch, item) => {
 export const removeItem = (dispatch, item) => {
   changeItem(dispatch, item, -1);
 };
-
-export const onSubmit = (screenDispatch, state) => {
-  //screenDispatch({type: 'SELECTED_ITEMS', value: });
-};

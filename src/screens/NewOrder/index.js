@@ -13,7 +13,15 @@ const NewOrder = () => {
     <ContextNewOrder.Provider value={[state, dispatch]}>
       <Router>
         <Switch>
-          <Route path="/confirm" component={ConfirmOrder} />
+          <Route
+            path="/confirm"
+            component={() => (
+              <ConfirmOrder
+                selectedItems={state.selectedItems}
+                currency={state.currency}
+              />
+            )}
+          />
           <Route path="*" component={ItemList} />
         </Switch>
       </Router>

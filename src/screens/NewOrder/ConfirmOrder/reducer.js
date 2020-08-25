@@ -1,15 +1,17 @@
 export const initialState = {
-  selectedItems: [],
-  currency: {},
+  loadingSubmit: false,
+  form: {
+    address: '',
+    phone: '',
+  },
 };
 
 export const reducer = (state, action) => {
   switch (action.type) {
-    case 'CREATED_ORDER':
+    case 'LOADING_SUBMIT':
       return {
         ...state,
-        selectedItems: action.value.selectedItems.filter((i) => i.quantity),
-        currency: action.value.currency,
+        loadingSubmit: action.value,
       };
     default:
       return state;

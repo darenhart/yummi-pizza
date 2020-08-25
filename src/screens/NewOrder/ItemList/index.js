@@ -7,7 +7,7 @@ import Remove from '@material-ui/icons/Remove';
 import { CircularProgress } from '@material-ui/core';
 import { reducer, initialState } from './reducer';
 import { ContextNewOrder } from '../index';
-import { retrieveItems, addItem, removeItem, onSubmit } from './handlers';
+import { retrieveItems, addItem, removeItem } from './handlers';
 import { formatPrice } from '../../../utils';
 import * as Style from './style';
 import CurrencyRadio from '../../../components/CurrencyRadio';
@@ -23,6 +23,13 @@ const ItemList = ({ history }) => {
 
   const price = state.items.reduce((a, b) => a + b.quantity * b.price, 0);
   const currency = state.currencies.find((c) => c.selected);
+  const onSubmit = () => {
+    screenDispatch({
+      type: 'CREATED_ORDER',
+      value: { selectedItems: state.items, currency },
+    });
+    history.push('/confirm');
+  };
 
   return state.loadingItems ? (
     <Style.Loader>
@@ -72,10 +79,7 @@ const ItemList = ({ history }) => {
           variant="contained"
           color="primary"
           disabled={!price}
-          onClick={() => {
-            screenDispatch({ type: 'SELECTED_ITEMS', value: state.items });
-            history.push('/confirm');
-          }}
+          onClick={() => onSubmit()}
         >
           Order {formatPrice(price, currency)}
         </Button>
