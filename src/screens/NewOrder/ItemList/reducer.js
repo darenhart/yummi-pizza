@@ -48,6 +48,17 @@ export const reducer = (state, action) => {
           return i;
         }),
       };
+    case 'SELECT_ITEM':
+      return {
+        ...state,
+        items: state.items.map((i) => {
+          if (i.id === action.item.id && i.quantity === 0) {
+            i.quantity = 1;
+          }
+          return i;
+        }),
+      };
+
     default:
       return state;
   }

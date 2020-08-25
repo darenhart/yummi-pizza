@@ -7,7 +7,7 @@ import Remove from '@material-ui/icons/Remove';
 import { CircularProgress } from '@material-ui/core';
 import { reducer, initialState } from './reducer';
 import { ContextNewOrder } from '../index';
-import { retrieveItems, addItem, removeItem } from './handlers';
+import { retrieveItems, addItem, removeItem, selectItem } from './handlers';
 import { formatPrice } from '../../../utils';
 import * as Style from './style';
 import CurrencyRadio from '../../../components/CurrencyRadio';
@@ -37,9 +37,10 @@ const ItemList = ({ history }) => {
     </Style.Loader>
   ) : (
     <div>
+      <p>Choose your pizzas:</p>
       {state.items.map((i) => (
         <Style.Item key={i.id} selected={i.quantity}>
-          <Style.Body>
+          <Style.Body onClick={() => selectItem(dispatch, i)}>
             <Style.Image url={i.image} />
             <div>
               <h4>{i.title}</h4>

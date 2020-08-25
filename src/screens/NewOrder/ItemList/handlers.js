@@ -24,9 +24,7 @@ export const addItem = (dispatch, item) => {
 };
 
 export const selectItem = (dispatch, item) => {
-  if (item.quantity === 0) {
-    addItem(dispatch, item);
-  }
+  dispatch({ type: 'SELECT_ITEM', item });
 };
 
 export const removeItem = (dispatch, item) => {

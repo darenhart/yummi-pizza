@@ -5,13 +5,20 @@ const instance = axios.create({
   baseURL: config.endpoint,
 });
 
-const ItemService = {
-  get: () => {
+const OrderService = {
+  post: () => {
     return instance({
-      method: 'GET',
-      url: `/item`,
+      method: 'POST',
+      url: `/order`,
+    });
+  },
+  completeOrder: (completeOrder) => {
+    return instance({
+      method: 'POST',
+      url: `/completeOrder`,
+      data: completeOrder,
     });
   },
 };
 
-export default ItemService;
+export default OrderService;

@@ -1,9 +1,5 @@
 export const initialState = {
   loadingSubmit: false,
-  form: {
-    address: '',
-    phone: '',
-  },
 };
 
 export const reducer = (state, action) => {
