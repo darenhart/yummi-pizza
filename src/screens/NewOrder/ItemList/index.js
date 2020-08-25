@@ -1,32 +1,43 @@
-import React, { useReducer, useEffect } from 'react';
+import React, { useReducer, useEffect, useContext } from 'react';
+import PropTypes from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import Button from '@material-ui/core/Button';
 import Add from '@material-ui/icons/Add';
 import Remove from '@material-ui/icons/Remove';
+import { CircularProgress } from '@material-ui/core';
 import { reducer, initialState } from './reducer';
-import { retrieveItems, addItem, removeItem } from './handlers';
-import { formatPrice } from '../../utils';
+import { ContextNewOrder } from '../index';
+import { retrieveItems, addItem, removeItem, onSubmit } from './handlers';
+import { formatPrice } from '../../../utils';
 import * as Style from './style';
+import CurrencyRadio from '../../../components/CurrencyRadio';
+import { withRouter } from 'react-router-dom';
 
-const ItemList = () => {
+const ItemList = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [, screenDispatch] = useContext(ContextNewOrder);
 
   useEffect(() => {
     retrieveItems(dispatch);
   }, []);
 
   const price = state.items.reduce((a, b) => a + b.quantity * b.price, 0);
+  const currency = state.currencies.find((c) => c.selected);
 
-  return (
+  return state.loadingItems ? (
+    <Style.Loader>
+      <CircularProgress />
+    </Style.Loader>
+  ) : (
     <div>
       {state.items.map((i) => (
         <Style.Item key={i.id} selected={i.quantity}>
-          <Style.Body onClick={() => addItem(dispatch, i)}>
+          <Style.Body>
             <Style.Image url={i.image} />
             <div>
               <h4>{i.title}</h4>
               <div>{i.description}</div>
-              <div>{formatPrice(i.price)}</div>
+              <Style.Price>{formatPrice(i.price, currency)}</Style.Price>
             </div>
           </Style.Body>
           <Style.Controls>
@@ -52,12 +63,31 @@ const ItemList = () => {
         </Style.Item>
       ))}
       <Style.Submit>
-        <Button variant="contained" color="primary" disabled={!price}>
-          Buy {formatPrice(price)}
+        <CurrencyRadio
+          onChange={(c) => {
+            dispatch({ type: 'CHANGE_CURRENCY', value: c });
+          }}
+        ></CurrencyRadio>
+        <Button
+          variant="contained"
+          color="primary"
+          disabled={!price}
+          onClick={() => {
+            screenDispatch({ type: 'SELECTED_ITEMS', value: state.items });
+            history.push('/confirm');
+          }}
+        >
+          Order {formatPrice(price, currency)}
         </Button>
       </Style.Submit>
     </div>
   );
 };
 
-export default ItemList;
+ItemList.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
+};
+
+export default withRouter(ItemList);

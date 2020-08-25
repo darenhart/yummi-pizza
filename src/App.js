@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Home from './components/Home';
+import NewOrder from './screens/NewOrder';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <header className="App-header">
         <p>Yummi App</p>
       </header>
-      <Home></Home>
+      <NewOrder></NewOrder>
     </div>
   );
 }

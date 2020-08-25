@@ -1,5 +1,9 @@
 export const initialState = {
   loadingItems: true,
+  currencies: [
+    { currency: 'EUR', symbol: '€', rate: 0, selected: true },
+    { currency: 'USD', symbol: 'US$', rate: 0 },
+  ],
   items: [],
 };
 
@@ -13,10 +17,26 @@ export const reducer = (state, action) => {
           return i;
         }),
       };
+    case 'EXCHANGE_RATE_RECEIVED':
+      return {
+        ...state,
+        currency: state.currencies.map((c) => {
+          c.rate = action.rates[c.currency] || 1;
+          return c;
+        }),
+      };
     case 'LOADING_ITEMS':
       return {
         ...state,
         loadingItems: action.value,
+      };
+    case 'CHANGE_CURRENCY':
+      return {
+        ...state,
+        currencies: state.currencies.map((c) => {
+          c.selected = c.currency === action.value;
+          return c;
+        }),
       };
     case 'CHANGE_ITEM':
       return {

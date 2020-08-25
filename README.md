@@ -14,4 +14,7 @@ In the project directory, you can run:
 
 `heroku open`
 
+### TODOs
 
+- onClick item
+- save on localStorage

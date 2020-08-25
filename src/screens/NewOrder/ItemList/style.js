@@ -1,5 +1,11 @@
 import Styled from 'styled-components';
-import { greenSecondary } from '../../variables';
+import { greenSecondary, brownSecondary } from '../../../variables';
+
+export const Loader = Styled.div`
+  display: flex;
+  justify-content: center;
+  margin-top: 3rem;
+`;
 
 export const Item = Styled.div`
   padding: 1rem;
@@ -15,6 +21,12 @@ export const Item = Styled.div`
   }
   background-color: ${(props) =>
     props.selected ? greenSecondary : 'transparent'}
+`;
+
+export const Price = Styled.div`
+  font-size: 14px;
+  margin-top: .4rem;
+  color: ${brownSecondary};
 `;
 
 export const Body = Styled.div`
@@ -38,5 +50,7 @@ export const Controls = Styled.div`
 
 export const Submit = Styled.div`
   margin-top: 1rem;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
