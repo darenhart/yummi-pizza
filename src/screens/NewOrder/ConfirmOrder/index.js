@@ -5,6 +5,7 @@ import { formatPrice } from '../../../utils';
 import * as Style from './style';
 import OrderService from '../../../services/OrderService';
 import { withRouter } from 'react-router-dom';
+import { useSnackbar } from 'notistack';
 
 const ConfirmOrder = (props) => {
   const { selectedItems, currency, history, appHistory } = props;
@@ -14,6 +15,7 @@ const ConfirmOrder = (props) => {
     address: '',
     phone: '',
   });
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     if (!selectedItems.length) {
@@ -41,6 +43,7 @@ const ConfirmOrder = (props) => {
       items: selectedItems,
     });
     setLoading(false);
+    enqueueSnackbar('Order created.', { variant: 'success' });
     appHistory.push('/orders');
   };
 

@@ -1,6 +1,4 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
+## Yummi Pizza
 
 In the project directory, you can run:
 
@@ -16,14 +14,15 @@ In the project directory, you can run:
 
 ### TODOs
 
-- move items to context
-- success order page
-- save selected items on localStorage
-- save user on localStorage
-- unit test
-- back button
-- handle request errors
-- separate item from itemList component
-- order button fixed on bottom
-- separate address fields
-- dev and prod endpoints
+- Validate form
+- Link to order list
+- Move items to context
+- Success order message
+- Save user on localStorage
+- Unit test
+- Add back button on confirm order page
+- Handle api errors
+- Separate Item from ItemList component
+- Order button always visible
+- Split address fields
+- Separate dev and prod endpoints

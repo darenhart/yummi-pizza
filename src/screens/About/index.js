@@ -13,7 +13,7 @@ const About = () => {
       </p>
       <p>
         GitHub back-end:{' '}
-        <a href="https://github.com/darenhart/yummi-pizza">
+        <a href="https://github.com/darenhart/yummi-pizza-api">
           github.com/darenhart/yummi-pizza-api
         </a>
       </p>
