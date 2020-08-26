@@ -28,7 +28,7 @@ const ItemList = ({ history }) => {
       type: 'CREATED_ORDER',
       value: { selectedItems: state.items, currency },
     });
-    history.push('/confirm');
+    history.push('/new-order/confirm');
   };
 
   return state.loadingItems ? (

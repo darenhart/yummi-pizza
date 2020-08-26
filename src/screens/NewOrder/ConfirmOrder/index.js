@@ -17,7 +17,7 @@ const ConfirmOrder = (props) => {
 
   useEffect(() => {
     if (!selectedItems.length) {
-      history.push('/');
+      history.push('/new-order/');
     }
   }, [selectedItems, history]);
 

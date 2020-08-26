@@ -1,5 +1,10 @@
 import React, { useReducer } from 'react';
-import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
+import {
+  Switch,
+  Route,
+  BrowserRouter as Router,
+  Redirect,
+} from 'react-router-dom';
 import ItemList from './ItemList';
 import ConfirmOrder from './ConfirmOrder';
 import { reducer, initialState } from './reducer';
@@ -15,7 +20,7 @@ const NewOrder = ({ history }) => {
       <Router>
         <Switch>
           <Route
-            path="/confirm"
+            path="/new-order/confirm"
             component={() => (
               <ConfirmOrder
                 selectedItems={state.selectedItems}
@@ -24,7 +29,10 @@ const NewOrder = ({ history }) => {
               />
             )}
           />
-          <Route path="*" component={ItemList} />
+          <Route path="/new-order/" component={ItemList} />
+          <Route path="*">
+            <Redirect to="/new-order/" />
+          </Route>
         </Switch>
       </Router>
     </ContextNewOrder.Provider>

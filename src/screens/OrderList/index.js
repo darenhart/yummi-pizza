@@ -31,7 +31,7 @@ const OrderList = () => {
           <ul>
             {o.items.map((i) => (
               <li key={i.id}>
-                {i.pivot.quantity}x {i.title}:{' '}
+                {i.pivot.quantity}x {i.title}
                 {/* {formatPrice(i.price * i.pivot.quantity, o.currency)} */}
               </li>
             ))}

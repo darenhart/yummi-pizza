@@ -13,3 +13,13 @@ h3,
 h4 {
   font-weight: normal;
 }
+
+.about {
+  color: white;
+  text-decoration: none;
+  position: absolute;
+  right: 2rem;
+}
+.about:hover {
+  color: #ccc;
+}

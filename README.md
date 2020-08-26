@@ -23,7 +23,6 @@ In the project directory, you can run:
 - unit test
 - back button
 - handle request errors
-- about us page
 - separate item from itemList component
 - order button fixed on bottom
 - separate address fields
