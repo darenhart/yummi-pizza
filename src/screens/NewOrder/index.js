@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
   Switch,
   Route,
@@ -9,11 +9,16 @@ import ItemList from './ItemList';
 import ConfirmOrder from './ConfirmOrder';
 import { reducer, initialState } from './reducer';
 import { withRouter } from 'react-router-dom';
+import { retrieveItems } from './handlers';
 
 export const ContextNewOrder = React.createContext();
 
 const NewOrder = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+
+  useEffect(() => {
+    retrieveItems(dispatch);
+  }, []);
 
   return (
     <ContextNewOrder.Provider value={[state, dispatch]}>
@@ -21,13 +26,7 @@ const NewOrder = ({ history }) => {
         <Switch>
           <Route
             path="/new-order/confirm"
-            component={() => (
-              <ConfirmOrder
-                selectedItems={state.selectedItems}
-                currency={state.currency}
-                appHistory={history}
-              />
-            )}
+            component={() => <ConfirmOrder appHistory={history} />}
           />
           <Route path="/new-order/" component={ItemList} />
           <Route path="*">

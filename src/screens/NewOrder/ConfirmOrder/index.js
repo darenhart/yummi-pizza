@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import {
   TextField,
@@ -6,6 +6,7 @@ import {
   CircularProgress,
   Input,
   InputLabel,
+  IconButton,
 } from '@material-ui/core';
 import { formatPrice } from '../../../utils';
 import * as Style from './style';
@@ -13,9 +14,12 @@ import OrderService from '../../../services/OrderService';
 import { withRouter } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
 import PhoneInput from '../../../components/PhoneInput';
+import ArrowBackIcon from '@material-ui/icons/ArrowBack';
+import { ContextNewOrder } from '../index';
 
 const ConfirmOrder = (props) => {
-  const { selectedItems, currency, history, appHistory } = props;
+  const [state] = useContext(ContextNewOrder);
+  const { history, appHistory } = props;
   const [loading, setLoading] = useState(false);
   const [form, setValues] = useState({
     name: '',
@@ -23,6 +27,9 @@ const ConfirmOrder = (props) => {
     phone: '',
   });
   const { enqueueSnackbar } = useSnackbar();
+
+  const selectedItems = state.items.filter((i) => i.quantity);
+  const currency = state.currencies.find((c) => c.selected);
 
   useEffect(() => {
     if (!selectedItems.length) {
@@ -40,6 +47,7 @@ const ConfirmOrder = (props) => {
 
   const confirmOrder = async () => {
     setLoading(true);
+
     await OrderService.completeOrder({
       user: form,
       order: {
@@ -59,6 +67,9 @@ const ConfirmOrder = (props) => {
 
   return (
     <Style.ConfirmOrder>
+      <IconButton aria-label="back" onClick={() => history.push('/new-order')}>
+        <ArrowBackIcon />
+      </IconButton>
       <h3>Confirm your order:</h3>
       <ul>
         {selectedItems.map((i) => (
@@ -120,8 +131,9 @@ const ConfirmOrder = (props) => {
 };
 
 ConfirmOrder.propTypes = {
-  selectedItems: PropTypes.array,
-  currency: PropTypes.object.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func.isRequired,
+  }),
   appHistory: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
