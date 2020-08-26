@@ -37,7 +37,7 @@ const ItemList = ({ history }) => {
     </Style.Loader>
   ) : (
     <div>
-      <p>Choose your pizzas:</p>
+      <Style.Title>Choose your pizzas:</Style.Title>
       {state.items.map((i) => (
         <Style.Item key={i.id} selected={i.quantity}>
           <Style.Body onClick={() => selectItem(dispatch, i)}>

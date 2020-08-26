@@ -4,7 +4,7 @@ import { greenSecondary, brownSecondary } from '../../../variables';
 export const Loader = Styled.div`
   display: flex;
   justify-content: center;
-  margin-top: 3rem;
+  margin-top: 5rem;
 `;
 
 export const Item = Styled.div`
@@ -23,6 +23,10 @@ export const Item = Styled.div`
     props.selected ? greenSecondary : 'transparent'}
 `;
 
+export const Title = Styled.h3`
+  margin-left: 1rem;
+`;
+
 export const Price = Styled.div`
   font-size: 14px;
   margin-top: .4rem;
@@ -31,6 +35,7 @@ export const Price = Styled.div`
 
 export const Body = Styled.div`
   display: flex;
+  cursor: pointer;
 `;
 
 export const Image = Styled.div`

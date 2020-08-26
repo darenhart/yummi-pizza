@@ -3,10 +3,11 @@ import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import ItemList from './ItemList';
 import ConfirmOrder from './ConfirmOrder';
 import { reducer, initialState } from './reducer';
+import { withRouter } from 'react-router-dom';
 
 export const ContextNewOrder = React.createContext();
 
-const NewOrder = () => {
+const NewOrder = ({ history }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   return (
@@ -19,6 +20,7 @@ const NewOrder = () => {
               <ConfirmOrder
                 selectedItems={state.selectedItems}
                 currency={state.currency}
+                appHistory={history}
               />
             )}
           />
@@ -29,4 +31,4 @@ const NewOrder = () => {
   );
 };
 
-export default NewOrder;
+export default withRouter(NewOrder);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormLabel from '@material-ui/core/FormLabel';
 
 const CurrencyRadio = ({ onChange }) => {
-  const [value, setValue] = React.useState('EUR');
+  const [value, setValue] = useState('EUR');
 
   const handleChange = (event) => {
     setValue(event.target.value);

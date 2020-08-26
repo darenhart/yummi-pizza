@@ -6,9 +6,9 @@ const instance = axios.create({
 });
 
 const OrderService = {
-  post: () => {
+  get: () => {
     return instance({
-      method: 'POST',
+      method: 'GET',
       url: `/order`,
     });
   },

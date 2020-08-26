@@ -2,3 +2,14 @@
   margin: auto;
   max-width: 640px;
 }
+
+.logo {
+  max-width: 2.6rem;
+  margin-right: 1rem;
+}
+
+h2,
+h3,
+h4 {
+  font-weight: normal;
+}

@@ -16,5 +16,15 @@ In the project directory, you can run:
 
 ### TODOs
 
-- save current order on localStorage
+- move items to context
+- success order page
+- save selected items on localStorage
+- save user on localStorage
+- unit test
+- back button
 - handle request errors
+- about us page
+- separate item from itemList component
+- order button fixed on bottom
+- separate address fields
+- dev and prod endpoints

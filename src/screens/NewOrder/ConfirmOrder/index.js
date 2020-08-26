@@ -1,15 +1,14 @@
-import React, { useReducer, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router-dom';
-import { reducer, initialState } from './reducer';
 import { TextField, Button, CircularProgress } from '@material-ui/core';
 import { formatPrice } from '../../../utils';
 import * as Style from './style';
-import { confirmOrder } from './handlers';
+import OrderService from '../../../services/OrderService';
+import { withRouter } from 'react-router-dom';
 
 const ConfirmOrder = (props) => {
-  const { selectedItems, currency, history } = props;
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const { selectedItems, currency, history, appHistory } = props;
+  const [loading, setLoading] = useState(false);
   const [form, setValues] = useState({
     name: '',
     address: '',
@@ -30,46 +29,62 @@ const ConfirmOrder = (props) => {
     setValues({ ...form, [prop]: event.target.value });
   };
 
+  const confirmOrder = async () => {
+    setLoading(true);
+    await OrderService.completeOrder({
+      user: form,
+      order: {
+        price,
+        currency: currency.currency,
+        delivery_price: deliveryPrice,
+      },
+      items: selectedItems,
+    });
+    setLoading(false);
+    appHistory.push('/orders');
+  };
+
   return (
-    <div>
-      <h4>Confirm your order:</h4>
-      {selectedItems.map((i) => (
-        <div key={i.id}>
-          {i.quantity}x {i.title} -{' '}
-          {formatPrice(i.price * i.quantity, currency)}
-        </div>
-      ))}
-      <div>Delivery price: {formatPrice(deliveryPrice, currency)}</div>
-      <div>Total order price: {formatPrice(totalPrice, currency)}</div>
+    <Style.ConfirmOrder>
+      <h3>Confirm your order:</h3>
+      <ul>
+        {selectedItems.map((i) => (
+          <li key={i.id}>
+            {i.quantity}x {i.title}:{' '}
+            {formatPrice(i.price * i.quantity, currency)}
+          </li>
+        ))}
+      </ul>
+      <div>Delivery: {formatPrice(deliveryPrice, currency)}</div>
+      <div>
+        Total order: <strong>{formatPrice(totalPrice, currency)}</strong>
+      </div>
       <h4>Enter your contact information:</h4>
       <Style.Form
         onSubmit={(e) => {
           e.preventDefault();
-          confirmOrder({
-            dispatch,
-            props,
-            form,
-            price,
-            deliveryPrice,
-          });
+          confirmOrder();
         }}
       >
         <TextField
           label="Name"
+          fullWidth
           value={form.name}
           onChange={handleChange('name')}
         />
         <TextField
           label="Address"
+          fullWidth
           value={form.address}
           onChange={handleChange('address')}
         />
         <TextField
           label="Phone"
+          fullWidth
           value={form.phone}
           onChange={handleChange('phone')}
         />
-        {state.loadingSubmit ? (
+        {loading ? (
           <CircularProgress />
         ) : (
           <Button variant="contained" color="primary" type="submit">
@@ -77,14 +92,14 @@ const ConfirmOrder = (props) => {
           </Button>
         )}
       </Style.Form>
-    </div>
+    </Style.ConfirmOrder>
   );
 };
 
 ConfirmOrder.propTypes = {
   selectedItems: PropTypes.array,
   currency: PropTypes.object.isRequired,
-  history: PropTypes.shape({
+  appHistory: PropTypes.shape({
     push: PropTypes.func.isRequired,
   }),
 };
