@@ -1,11 +1,18 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import { TextField, Button, CircularProgress } from '@material-ui/core';
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Input,
+  InputLabel,
+} from '@material-ui/core';
 import { formatPrice } from '../../../utils';
 import * as Style from './style';
 import OrderService from '../../../services/OrderService';
 import { withRouter } from 'react-router-dom';
 import { useSnackbar } from 'notistack';
+import PhoneInput from '../../../components/PhoneInput';
 
 const ConfirmOrder = (props) => {
   const { selectedItems, currency, history, appHistory } = props;
@@ -47,6 +54,9 @@ const ConfirmOrder = (props) => {
     appHistory.push('/orders');
   };
 
+  const disabled =
+    !form.name || !form.address || form.phone.replace(/\D/g, '').length < 9;
+
   return (
     <Style.ConfirmOrder>
       <h3>Confirm your order:</h3>
@@ -70,27 +80,37 @@ const ConfirmOrder = (props) => {
         }}
       >
         <TextField
+          required
           label="Name"
           fullWidth
           value={form.name}
           onChange={handleChange('name')}
         />
         <TextField
+          required
           label="Address"
           fullWidth
           value={form.address}
           onChange={handleChange('address')}
         />
-        <TextField
-          label="Phone"
-          fullWidth
+        <InputLabel htmlFor="phone">Phone *</InputLabel>
+        <Input
+          required
           value={form.phone}
+          fullWidth
           onChange={handleChange('phone')}
+          name="phone"
+          inputComponent={PhoneInput}
         />
         {loading ? (
           <CircularProgress />
         ) : (
-          <Button variant="contained" color="primary" type="submit">
+          <Button
+            variant="contained"
+            color="primary"
+            type="submit"
+            disabled={disabled}
+          >
             Confirm Order
           </Button>
         )}

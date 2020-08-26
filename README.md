@@ -14,10 +14,9 @@ In the project directory, you can run:
 
 ### TODOs
 
-- Validate form
 - Link to order list
-- Move items to context
-- Success order message
+- Show prices on order list
+- Move state items from ItemList to context
 - Save user on localStorage
 - Unit test
 - Add back button on confirm order page

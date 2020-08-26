@@ -28,11 +28,11 @@ const OrderList = () => {
       <Style.Title>Orders:</Style.Title>
       {orders.map((o) => (
         <Style.Item key={o.id}>
+          <Style.Date>{new Date(o.created_at).toString()}</Style.Date>
           <ul>
             {o.items.map((i) => (
               <li key={i.id}>
                 {i.pivot.quantity}x {i.title}
-                {/* {formatPrice(i.price * i.pivot.quantity, o.currency)} */}
               </li>
             ))}
           </ul>

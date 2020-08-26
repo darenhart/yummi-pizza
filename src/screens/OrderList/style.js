@@ -14,3 +14,8 @@ export const Item = Styled.div`
   padding: 1rem;
   border-bottom: solid 1px #CCC;
 `;
+
+export const Date = Styled.div`
+  font-size: 14px;
+  color: grey;
+`;
