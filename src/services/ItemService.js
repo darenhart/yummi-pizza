@@ -1,7 +1,8 @@
 import axios from 'axios';
+import config from '../config';
 
 const instance = axios.create({
-  baseURL: 'http://127.0.0.1:8000/api',
+  baseURL: config.endpoint,
 });
 
 const ItemService = {

@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import NewOrder from './screens/NewOrder';
-import { AppBar, Toolbar, Button, IconButton } from '@material-ui/core';
+import { AppBar, Toolbar } from '@material-ui/core';
 import {
   Switch,
   Route,
