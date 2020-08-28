@@ -61,7 +61,7 @@ const ItemList = ({ history }) => {
           </Style.Controls>
         </Style.Item>
       ))}
-      {price != 0 && (
+      {price !== 0 && (
         <Style.Submit>
           <CurrencyRadio
             onChange={(c) => {
