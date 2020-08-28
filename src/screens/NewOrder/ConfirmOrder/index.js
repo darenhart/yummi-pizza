@@ -58,7 +58,9 @@ const ConfirmOrder = (props) => {
       items: selectedItems,
     });
     setLoading(false);
-    enqueueSnackbar('Order created.', { variant: 'success' });
+    enqueueSnackbar('Order accepter. Your pizza will be delivered soon.', {
+      variant: 'success',
+    });
     appHistory.push('/orders');
   };
 
@@ -71,18 +73,23 @@ const ConfirmOrder = (props) => {
         <ArrowBackIcon />
       </IconButton>
       <h3>Confirm your order:</h3>
-      <ul>
+      <Style.OrderPrices>
         {selectedItems.map((i) => (
           <li key={i.id}>
             {i.quantity}x {i.title}:{' '}
-            {formatPrice(i.price * i.quantity, currency)}
+            <span>{formatPrice(i.price * i.quantity, currency)}</span>
           </li>
         ))}
-      </ul>
-      <div>Delivery: {formatPrice(deliveryPrice, currency)}</div>
-      <div>
-        Total order: <strong>{formatPrice(totalPrice, currency)}</strong>
-      </div>
+        <li>
+          Delivery: <span>{formatPrice(deliveryPrice, currency)}</span>
+        </li>
+        <li>
+          Total order:{' '}
+          <span>
+            <strong>{formatPrice(totalPrice, currency)}</strong>
+          </span>
+        </li>
+      </Style.OrderPrices>
       <h4>Enter your contact information:</h4>
       <Style.Form
         onSubmit={(e) => {
@@ -114,7 +121,9 @@ const ConfirmOrder = (props) => {
           inputComponent={PhoneInput}
         />
         {loading ? (
-          <CircularProgress />
+          <Style.Loader>
+            <CircularProgress />
+          </Style.Loader>
         ) : (
           <Button
             variant="contained"

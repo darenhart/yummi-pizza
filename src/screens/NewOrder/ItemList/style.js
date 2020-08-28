@@ -1,6 +1,10 @@
 import Styled from 'styled-components';
 import { greenSecondary, brownSecondary } from '../../../variables';
 
+export const ItemList = Styled.div`
+  padding-bottom: 9rem;
+`;
+
 export const Loader = Styled.div`
   display: flex;
   justify-content: center;
@@ -8,10 +12,18 @@ export const Loader = Styled.div`
 `;
 
 export const Item = Styled.div`
-  padding: 1rem;
+  padding: .6rem;
   border-bottom: solid 1px #CCC;
   display: flex;
   justify-content: space-between;
+  flex-wrap: wrap;
+  .pointer {
+    cursor: pointer;
+  }
+  > * {
+    flex: 1 0 120px;
+    margin: 5px;
+  }
   h4 {
     margin-top: 0;
     margin-bottom: 1rem;
@@ -33,13 +45,9 @@ export const Price = Styled.div`
   color: ${brownSecondary};
 `;
 
-export const Body = Styled.div`
-  display: flex;
-  cursor: pointer;
-`;
-
 export const Image = Styled.div`
-  margin-right: 1rem;
+  border-radius: 4px;
+  min-height: 4rem;
   min-width: 6rem;
   background-size: cover;
   background-position: center;
@@ -47,10 +55,12 @@ export const Image = Styled.div`
 `;
 
 export const Controls = Styled.div`
-  min-width: 4rem;
-  margin-top: 1rem;
-  margin-left: 1rem;
-  text-align: center;
+  max-width: 3.4rem;
+  display: grid;
+  place-items: center;
+  div {
+    text-align: center;
+  }
 `;
 
 export const Submit = Styled.div`
@@ -58,4 +68,12 @@ export const Submit = Styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
+
+  position: fixed;
+  bottom: 0px;
+  left:0px;
+  background: white;
+  width: 100%;
+  padding: 0.8rem 0;
+  box-shadow: 0px -4px 5px rgba(0,0,0,.2)
 `;

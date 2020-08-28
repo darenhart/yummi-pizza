@@ -15,3 +15,16 @@ export const Form = Styled.form`
     display: block;
   }
 `;
+
+export const OrderPrices = Styled.ul`
+  list-style-type: none;
+  padding: .5rem;
+  li > span {
+    float: right;
+  }
+`;
+
+export const Loader = Styled.div`
+  display: flex;
+  justify-content: center;
+`;

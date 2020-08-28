@@ -23,58 +23,64 @@ const ItemList = ({ history }) => {
       <CircularProgress />
     </Style.Loader>
   ) : (
-    <div>
+    <Style.ItemList>
       <Style.Title>Choose your pizzas:</Style.Title>
       {state.items.map((i) => (
         <Style.Item key={i.id} selected={i.quantity}>
-          <Style.Body onClick={() => selectItem(dispatch, i)}>
-            <Style.Image url={i.image} />
-            <div>
-              <h4>{i.title}</h4>
-              <div>{i.description}</div>
-              <Style.Price>{formatPrice(i.price, currency)}</Style.Price>
-            </div>
-          </Style.Body>
+          <Style.Image
+            url={i.image}
+            onClick={() => selectItem(dispatch, i)}
+            className="pointer"
+          />
+          <div onClick={() => selectItem(dispatch, i)} className="pointer">
+            <h4>{i.title}</h4>
+            <div>{i.description}</div>
+            <Style.Price>{formatPrice(i.price, currency)}</Style.Price>
+          </div>
           <Style.Controls>
-            <div className={`quantity ${i.quantity ? '' : 'hide'}`}>
-              {i.quantity || 0}
+            <div>
+              <div className={`${i.quantity ? '' : 'hide'}`}>
+                {i.quantity || 0}
+              </div>
+              <IconButton
+                aria-label="remove"
+                size="small"
+                className={i.quantity ? '' : 'hide'}
+                onClick={() => removeItem(dispatch, i)}
+              >
+                <Remove fontSize="inherit" />
+              </IconButton>
+              <IconButton
+                aria-label="add"
+                onClick={() => addItem(dispatch, i)}
+                size="small"
+              >
+                <Add />
+              </IconButton>
             </div>
-            <IconButton
-              aria-label="remove"
-              size="small"
-              className={i.quantity ? '' : 'hide'}
-              onClick={() => removeItem(dispatch, i)}
-            >
-              <Remove fontSize="inherit" />
-            </IconButton>
-            <IconButton
-              aria-label="add"
-              onClick={() => addItem(dispatch, i)}
-              size="small"
-            >
-              <Add />
-            </IconButton>
           </Style.Controls>
         </Style.Item>
       ))}
-      <Style.Submit>
-        <CurrencyRadio
-          onChange={(c) => {
-            dispatch({ type: 'CHANGE_CURRENCY', value: c });
-          }}
-        ></CurrencyRadio>
-        <Button
-          variant="contained"
-          color="primary"
-          disabled={!price}
-          onClick={() => {
-            history.push('/new-order/confirm');
-          }}
-        >
-          Order {formatPrice(price, currency)}
-        </Button>
-      </Style.Submit>
-    </div>
+      {price != 0 && (
+        <Style.Submit>
+          <CurrencyRadio
+            onChange={(c) => {
+              dispatch({ type: 'CHANGE_CURRENCY', value: c });
+            }}
+          ></CurrencyRadio>
+          <Button
+            variant="contained"
+            color="primary"
+            disabled={!price}
+            onClick={() => {
+              history.push('/new-order/confirm');
+            }}
+          >
+            Order {formatPrice(price, currency)}
+          </Button>
+        </Style.Submit>
+      )}
+    </Style.ItemList>
   );
 };
 

@@ -20,6 +20,5 @@ In the project directory, you can run:
 - Unit test
 - Handle api errors
 - Separate Item from ItemList component
-- Order button always visible
 - Split address fields
 - Separate dev and prod endpoints
