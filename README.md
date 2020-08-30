@@ -17,7 +17,7 @@ In the project directory, you can run:
 - Link to order list
 - Show prices on order list
 - Save user on localStorage
-- Unit test
+- Increase test coverage
 - Handle api errors
 - Separate Item from ItemList component
 - Split address fields
